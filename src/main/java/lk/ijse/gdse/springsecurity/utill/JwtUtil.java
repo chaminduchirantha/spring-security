@@ -5,10 +5,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@ComponentScan
+@Component
 public class JwtUtil{
     @Value("${jwt.expiration}")
     private long expiration;
