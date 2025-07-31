@@ -21,7 +21,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
 
     public AuthResponseDto authenticate(AuthDto authDto) {
-        User user = userRepo.fidByUserName(authDto.getUsername())
+        User user = userRepo.findByUsername(authDto.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         if (passwordEncoder.matches(authDto.getPassword(),user.getUsername())){
             throw new BadCredentialsException("Invalid Password");
@@ -33,7 +33,7 @@ public class AuthService {
 
 
     public String register(RegisterDto registerDTO) {
-        if (userRepo.fidByUserName(registerDTO.getUsername()).isPresent()) {
+        if (userRepo.findByUsername(registerDTO.getUsername()).isPresent()) {
             throw new RuntimeException("Username is already exist");
         }
         User user = User.builder()
