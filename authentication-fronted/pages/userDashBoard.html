@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>User Dashboard</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
-        /* Hide content until validated */
+        /* Hide content until validation */
         body {
             display: none;
         }
     </style>
 </head>
 <body>
-<h1>Welcome to Admin Dashboard</h1>
+
+<h1>Welcome to User Dashboard</h1>
 
 <script>
     const token = localStorage.getItem('token');
@@ -28,12 +29,11 @@
                 'Authorization': 'Bearer ' + token
             },
             success: function (response) {
-                if (response.role === 'ADMIN') {
-                    // Show dashboard content
-                    $('body').show();
-                    console.log("Access granted for ADMIN:", username);
+                if (response.role === 'USER') {
+                    $('body').show(); // allow page to show
+                    console.log(" Access granted for USER:", username);
                 } else {
-                    alert("Access Denied: You are not an admin.");
+                    alert("Access Denied: You are not a regular user.");
                     window.location.href = 'signIn.html';
                 }
             },
@@ -45,5 +45,6 @@
         });
     }
 </script>
+
 </body>
 </html>
