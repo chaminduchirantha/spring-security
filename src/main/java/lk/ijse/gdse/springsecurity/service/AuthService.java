@@ -23,13 +23,19 @@ public class AuthService {
     public AuthResponseDto authenticate(AuthDto authDto) {
         User user = userRepo.findByUsername(authDto.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-        if (passwordEncoder.matches(authDto.getPassword(),user.getUsername())){
+
+        if (!passwordEncoder.matches(authDto.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("Invalid Password");
         }
 
         String token = jwtUtil.generateToken(authDto.getUsername());
+
+        System.out.println("Login successful for user: " + authDto.getUsername());
+        System.out.println(" Role: " + user.getRole());
+
         return new AuthResponseDto(token);
     }
+
 
 
     public String register(RegisterDto registerDTO) {
@@ -44,7 +50,5 @@ public class AuthService {
         userRepo.save(user);
         return "User registered successfully";
     }
-
-
 
 }
