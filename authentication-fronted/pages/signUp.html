@@ -16,12 +16,12 @@
     <input type="text" class="form-control" id="name" placeholder="Enter your name">
   </div>
   <div class="mb-3">
-    <label for="email" class="form-label">Enter Email address</label>
-    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+    <label for="password" class="form-label">Enter Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Enter your Password">
   </div>
   <div class="mb-3">
-    <label for="password" class="form-label">Enter Password</label>
-    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+    <label for="role" class="form-label">Role</label>
+    <input type="text" class="form-control" id="role" placeholder="Enter your Role">
   </div>
 
   <button type="button" class="btn btn-primary" id="signUp">Sign Up</button>
@@ -32,6 +32,37 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+<script>
+  $('#signUp').on('click', function () {
+    var username = $('#name').val();
+    var password = $('#password').val();
+    var role = $('#role').val();
+
+    if (username && role && password) {
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:8080/auth/register',
+        data: JSON.stringify({
+          username: username,
+          password: password,
+          role: role.toUpperCase()   // ensure role matches enum values
+        }),
+        contentType: 'application/json',
+        success: function (response) {
+          alert(response.message); // Optional
+          window.location.href = 'signIn.html';
+        },
+        error: function (xhr) {
+          let errorMessage = xhr.responseJSON?.message || 'Error occurred';
+          alert(errorMessage);
+        }
+      });
+    } else {
+      alert('Please fill in all fields');
+    }
+  });
+
+</script>
 
 </body>
 </html>
