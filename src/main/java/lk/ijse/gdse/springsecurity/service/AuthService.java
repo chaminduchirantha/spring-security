@@ -42,13 +42,17 @@ public class AuthService {
         if (userRepo.findByUsername(registerDTO.getUsername()).isPresent()) {
             throw new RuntimeException("Username is already exist");
         }
+
         User user = User.builder()
                 .username(registerDTO.getUsername())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
+                .email(registerDTO.getEmail())
                 .role(Role.valueOf(registerDTO.getRole()))
                 .build();
+
         userRepo.save(user);
         return "User registered successfully";
     }
+
 
 }

@@ -16,12 +16,12 @@
     <input type="text" class="form-control" id="name" placeholder="Enter your name">
   </div>
   <div class="mb-3">
-    <label for="password" class="form-label">Enter Password</label>
-    <input type="password" class="form-control" id="password" placeholder="Enter your Password">
+    <label for="email" class="form-label">Enter Email</label>
+    <input type="email" class="form-control" id="email" placeholder="Enter your Email">
   </div>
   <div class="mb-3">
-    <label for="role" class="form-label">Role</label>
-    <input type="text" class="form-control" id="role" placeholder="Enter your Role">
+    <label for="password" class="form-label">Enter Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Enter your Password">
   </div>
 
   <button type="button" class="btn btn-primary" id="signUp">Sign Up</button>
@@ -35,21 +35,22 @@
 <script>
   $('#signUp').on('click', function () {
     var username = $('#name').val();
+    var email = $('#email').val();
     var password = $('#password').val();
-    var role = $('#role').val();
 
-    if (username && role && password) {
+    if (username && email && password) {
       $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/auth/register',
         data: JSON.stringify({
           username: username,
+          email: email,
           password: password,
-          role: role.toUpperCase()   // ensure role matches enum values
+          role: "USER" // default role
         }),
         contentType: 'application/json',
         success: function (response) {
-          alert(response.message); // Optional
+          alert(response.message);
           window.location.href = 'signIn.html';
         },
         error: function (xhr) {
@@ -61,7 +62,6 @@
       alert('Please fill in all fields');
     }
   });
-
 </script>
 
 </body>
