@@ -37,7 +37,7 @@
         if (username && password) {
             $.ajax({
                 method: 'POST',
-                url: 'http://localhost:8080/auth/login',
+                url: 'https://spring-security-production-9a8f.up.railway.app/auth/login',
                 contentType: 'application/json',
                 data: JSON.stringify({
                     username: username,
@@ -55,7 +55,7 @@
                         // Get user role
                         $.ajax({
                             method: 'GET',
-                            url: 'http://localhost:8080/hello/api/user-info',
+                            url: 'https://spring-security-production-9a8f.up.railway.app/hello/api/user-info',
                             headers: {
                                 'Authorization': 'Bearer ' + token
                             },

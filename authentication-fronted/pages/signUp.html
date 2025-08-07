@@ -41,7 +41,7 @@
     if (username && email && password) {
       $.ajax({
         type: 'POST',
-        url: 'http://localhost:8080/auth/register',
+        url: 'https://spring-security-production-9a8f.up.railway.app/auth/register',
         data: JSON.stringify({
           username: username,
           email: email,
